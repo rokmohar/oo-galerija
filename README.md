@@ -9,10 +9,14 @@ Project is using [Docker](https://www.docker.com/ "Docker") containers for envir
 - PHP container
 - NGINX container
 
-**Table of Contents**
-
-[TOC]
-
 ## Installation on Windows
 
 You must install [Docker for Windows](https://store.docker.com/editions/community/docker-ce-desktop-windows "Docker for Windows") on your local machine.
+
+When you have docker installed and running you must open a command line interface (cmd) and navigate to the project root. When setting up docker containers for the first time or rebuilding them after you have pulled new changes from the repository you must first execute the command `docker-compose up -d --build` to build the docker containers. When building the containers is finished you must run the command `docker-compose exec php sh` and then `composer self-update & composer install` to install the vendor libraries to the project.
+
+When starting the containers without building them run the command `docker-compose up -d` without the `--build`.
+
+When the steps above are complete you can access the website on the the local address `http://symfony.local/`.
+
+**Note:** You must add `symfony.local` to your hosts and point it to the local IP address `127.0.0.1`.

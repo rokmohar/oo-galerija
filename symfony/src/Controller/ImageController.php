@@ -51,7 +51,7 @@ class ImageController extends ApiController
         $imageRepository = $manager->getRepository(Image::class);
 
         /** @var Image[] $images */
-        $images = $imageRepository->findBy([], ['createdAt' => 'DESC']);
+        $images = $imageRepository->findBy(['gallery' => $gallery], ['createdAt' => 'DESC']);
 
         /** @var Serializer $serializer */
         $serializer = $this->get('jms_serializer');

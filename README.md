@@ -20,3 +20,7 @@ When starting the containers without building them run the command `docker-compo
 When the steps above are complete you can access the website on the the local address `http://symfony.local/`.
 
 **Note:** You must add `symfony.local` to your hosts and point it to the local IP address `127.0.0.1`.
+
+### Default user
+
+When you login for the first time use the default user credentials `username: user1` and `password: pass1`. You can change these on the account settings page.

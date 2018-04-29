@@ -13,7 +13,10 @@ Project is using [Docker](https://www.docker.com/ "Docker") containers for envir
 
 You must install [Docker for Windows](https://store.docker.com/editions/community/docker-ce-desktop-windows "Docker for Windows") on your local machine.
 
-When you have docker installed and running you must open a command line interface (cmd) and navigate to the project root. When setting up docker containers for the first time or rebuilding them after you have pulled new changes from the repository you must first execute the command `docker-compose up -d --build` to build the docker containers. When building the containers is finished you must run the command `docker-compose exec php sh` and then `composer install` to install the vendor libraries to the project.
+When you have docker installed and running you must open a command line interface (cmd) and navigate to the project root.
+When setting up docker containers for the first time or rebuilding them after you have pulled new changes from the repository you must first execute the command `docker-compose up -d --build` to build the docker containers.
+After building the containers is finished you must run the command `docker-compose exec php sh` and then `composer install` to install the vendor libraries to the project.
+After the libraries are installed you must run the `php bin/console do:mi:mi` command to execute the migrations.
 
 **Note:** If the `composer install` command fails you might need to update your composer with the `composer self-update` command.
 

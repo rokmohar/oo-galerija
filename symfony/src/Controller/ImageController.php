@@ -183,11 +183,11 @@ class ImageController extends ApiController
         $image->setDescription($imageData->getDescription());
         $image->setCustomer($imageData->getCustomer());
         $image->setTags($imageData->getTags());
-        $image->setContent($imageData->getContent());
+        //$image->setContent($imageData->getContent());
 
-        if (null !== $image->getContent()) {
+        /*if (null !== $image->getContent()) {
             $this->uploadFromDataUrl($image);
-        }
+        }*/
 
         $manager->persist($image);
         $manager->flush();

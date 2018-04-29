@@ -10,7 +10,7 @@
         <img ref="imgPreview" class="img-fluid" width="100%" src.bind="image.web_path" />
     </div>
 
-    <div class="form-group">
+    <div if.bind="!image.id" class="form-group">
         <input type="file" class="form-hidden" ref="fileInput" />
         <button type="button" class="btn btn-outline-primary" click.delegate="selectImage()" disabled.bind="isSaving">
             Izberi fotografijo

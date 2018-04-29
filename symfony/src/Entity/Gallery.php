@@ -141,10 +141,10 @@ class Gallery
     }
 
     /**
-     * @param string $description
+     * @param null|string $description
      * @return self
      */
-    public function setDescription(string $description): self
+    public function setDescription(string $description = null): self
     {
         $this->description = $description;
         return $this;
@@ -178,7 +178,7 @@ class Gallery
      * @param Image $image
      * @return self
      */
-    public function addGallery(Image $image): self
+    public function addImage(Image $image): self
     {
         $this->images->add($image);
         return $this;
@@ -188,7 +188,7 @@ class Gallery
      * @param Image $image
      * @return self
      */
-    public function removeGallery(Image $image): self
+    public function removeImage(Image $image): self
     {
         $this->images->removeElement($image);
         return $this;

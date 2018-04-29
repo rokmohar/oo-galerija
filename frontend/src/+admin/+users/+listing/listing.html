@@ -1,0 +1,68 @@
+<template>
+    <div class="form-group">
+        <h2>Seznam uporabnikov</h2>
+    </div>
+
+    <div class="form-group clearfix">
+        <a class="btn btn-outline-primary pull-right" href="/admin/users/create">
+            Nov uporabnik
+        </a>
+    </div>
+
+    <div class="form-group">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col" class="align-middle" width="240">
+                    Uporabniško ime
+                </th>
+                <th scope="col" class="align-middle">
+                    Ime
+                </th>
+                <th scope="col" class="align-middle text-center" width="180">
+                    Ustvarjeno
+                </th>
+                <th scope="col" class="align-middle text-center" width="140"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr if.bind="!users || users.size === 0">
+                <td colspan="4" class="text-center">
+                    Seznam je prazen.
+                </td>
+            </tr>
+
+            <tr repeat.for="user of users">
+                <td class="align-middle">
+                    ${user.username}
+                </td>
+                <td class="align-middle">
+                    ${user.name}
+                </td>
+                <td class="align-middle text-center">
+                    ${user.created_at}
+                </td>
+                <td class="align-middle text-center">
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
+                            Izberi akcijo
+                        </button>
+
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/admin/users/${user.id}/edit">
+                                <i class="fa fa-edit"></i>
+                                Uredi uporabnika
+                            </a>
+
+                            <a class="dropdown-item" href="#" click.delegate="deleteUser(user)">
+                                <i class="fa fa-remove"></i>
+                                Odstrani uporabnika
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</template>

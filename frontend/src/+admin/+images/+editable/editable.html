@@ -1,0 +1,46 @@
+<template>
+    <require from="select2/dist/css/select2.min.css"></require>
+    <require from="attributes/select2"></require>
+
+    <div class="form-group">
+        <h2>Urejanje fotografije</h2>
+    </div>
+
+    <div class="form-group" show.bind="imgPreview.src || image.web_path">
+        <img ref="imgPreview" class="img-fluid" width="100%" src.bind="image.web_path" />
+    </div>
+
+    <div class="form-group">
+        <input type="file" class="form-hidden" ref="fileInput" />
+        <button type="button" class="btn btn-outline-primary" click.delegate="selectImage()" disabled.bind="isSaving">
+            Izberi fotografijo
+        </button>
+    </div>
+
+    <div class="form-group">
+        <label for="image-title">Ime</label>
+        <input id="image-title" type="text" class="form-control" disabled.bind="isSaving" value.bind="image.title" />
+    </div>
+
+    <div class="form-group">
+        <label for="image-description">Opis</label>
+        <textarea id="image-description" class="form-control" disabled.bind="isSaving" value.bind="image.description"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="image-customer">Stranka</label>
+        <input id="image-customer" type="text" class="form-control" disabled.bind="isSaving" value.bind="image.customer" />
+    </div>
+
+    <div class="form-group">
+        <label for="image-tags">Oznake</label>
+        <select id="image-tags" class="form-control" multiple="multiple" select2.bind="tagsOptions" disabled.bind="isSaving" value.bind="image.tags">
+        </select>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary" click.delegate="submitImage()" disabled.bind="isSaving">
+            Shrani spremembe
+        </button>
+    </div>
+</template>

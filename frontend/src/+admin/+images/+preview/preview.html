@@ -1,0 +1,100 @@
+<template>
+    <div class="form-group">
+        <h2>Predogled fotografije</h2>
+    </div>
+
+    <div class="form-group">
+        <img class="img-fluid" width="100%" src.bind="image.web_path" />
+    </div>
+
+    <div class="form-group">
+        <h3>Podatki o fotografiji</h3>
+    </div>
+
+    <div class="form-group">
+        <table class="table">
+            <tbody>
+            <tr>
+                <td class="w-25">
+                    Naslov
+                </td>
+                <td class="w-75">
+                    ${image.title}
+                </td>
+            </tr>
+            <tr>
+                <td class="w-25">
+                    Opis
+                </td>
+                <td class="w-75">
+                    ${image.description}
+                </td>
+            </tr>
+            <tr>
+                <td class="w-25">
+                    Stranka
+                </td>
+                <td class="w-75">
+                    ${image.customer}
+                </td>
+            </tr>
+            <tr>
+                <td class="w-25">
+                    Oznake
+                </td>
+                <td class="w-75">
+                    ${image.tags}
+                </td>
+            </tr>
+            <tr>
+                <td class="w-25">
+                    Tip datoteke
+                </td>
+                <td class="w-75">
+                    ${image.mime_type}
+                </td>
+            </tr>
+            <tr>
+                <td class="w-25">
+                    Kontrolna vsota
+                </td>
+                <td class="w-75">
+                    ${image.checksum}
+                </td>
+            </tr>
+            <tr>
+                <td class="w-25">
+                    Razširitev datoteke
+                </td>
+                <td class="w-75">
+                    ${image.extension}
+                </td>
+            </tr>
+            <tr>
+                <td class="w-25">
+                    Velikost datoteke
+                </td>
+                <td class="w-75">
+                    ${image.size}
+                </td>
+            </tr>
+            <tr>
+                <td class="w-25">
+                    Velikost fotografije (px)
+                </td>
+                <td class="w-75">
+                    ${image.width}x${image.height}
+                </td>
+            </tr>
+            <tr>
+                <td class="w-25">
+                    Ustvarjeno
+                </td>
+                <td class="w-75">
+                    ${image.created_at}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</template>

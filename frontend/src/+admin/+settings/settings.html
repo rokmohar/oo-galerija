@@ -1,0 +1,28 @@
+<template>
+    <form>
+        <div class="form-group">
+            <h2>Nastavitve</h2>
+        </div>
+
+        <div class="form-group">
+            <label for="identity-username">Uporabniško ime</label>
+            <input id="identity-username" type="text" class="form-control" disabled.bind="isSaving" value.bind="identity.username" />
+        </div>
+
+        <div class="form-group">
+            <label for="identity-password">Geslo</label>
+            <input id="identity-password" type="password" class="form-control" disabled.bind="isSaving" value.bind="identity.password" />
+        </div>
+
+        <div class="form-group">
+            <label for="identity-name">Ime</label>
+            <input id="identity-name" type="text" class="form-control" disabled.bind="isSaving" value.bind="identity.name" />
+        </div>
+
+        <div class="form-group clearfix">
+            <button type="submit" class="btn btn-primary pull-right" click.delegate="submitIdentity()" disabled.bind="isSaving">
+                Shrani spremembe
+            </button>
+        </div>
+    </form>
+</template>

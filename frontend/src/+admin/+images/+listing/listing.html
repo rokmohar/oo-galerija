@@ -1,0 +1,89 @@
+<template>
+    <div class="form-group">
+        <h2>Seznam fotografij</h2>
+    </div>
+
+    <div class="form-group clearfix">
+        <a class="btn btn-outline-primary pull-right" href="/admin/galleries/${gallery.id}/images/create">
+            Nova fotografija
+        </a>
+    </div>
+
+    <div class="form-group">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col" class="align-middle text-center" width="15"></th>
+                <th scope="col" class="align-middle text-center" width="15"></th>
+                <th scope="col" class="align-middle" width="240">
+                    Naziv
+                </th>
+                <th scope="col" class="align-middle">
+                    Opis
+                </th>
+                <th scope="col" class="align-middle text-center" width="180">
+                    Ustvarjeno
+                </th>
+                <th scope="col" class="align-middle text-center" width="140"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr if.bind="!images || images.size === 0">
+                <td colspan="6" class="text-center">
+                    Seznam je prazen.
+                </td>
+            </tr>
+
+            <tr repeat.for="image of images">
+                <td class="align-middle text-center">
+                    <input type="radio" name="compare1" model.bind="image" checked.bind="$parent.compare1" disabled.bind="$parent.compare2 === image" />
+                </td>
+                <td class="align-middle text-center">
+                    <input type="radio" name="compare2" model.bind="image" checked.bind="$parent.compare2" disabled.bind="$parent.compare1 === image" />
+                </td>
+                <td class="align-middle">
+                    <a href="/admin/galleries/${gallery.id}/images/${image.id}">
+                        ${image.title}
+                    </a>
+                </td>
+                <td class="align-middle">
+                    ${image.description}
+                </td>
+                <td class="align-middle text-center">
+                    ${image.created_at}
+                </td>
+                <td class="align-middle text-center">
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
+                            Izberi akcijo
+                        </button>
+
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/image/${image.id}">
+                                <i class="fa fa-image"></i>
+                                Javna povezava
+                            </a>
+
+                            <a class="dropdown-item" href="/admin/galleries/${gallery.id}/images/${image.id}/edit">
+                                <i class="fa fa-edit"></i>
+                                Uredi fotografijo
+                            </a>
+
+                            <a class="dropdown-item" href="#" click.delegate="deleteImage(gallery)">
+                                <i class="fa fa-remove"></i>
+                                Odstrani fotografijo
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div if.bind="images && images.size !== 0" class="form-group clearfix">
+        <button type="button" class="btn btn-primary" click.delegate="compareImages()">
+            Primerjaj fotografije
+        </button>
+    </div>
+</template>

@@ -1,0 +1,34 @@
+version: '2.1'
+
+services:
+    mysql:
+        image: mysql
+        ports:
+            - 3306:3306
+        volumes:
+            - "./db:/var/lib/mysql"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: symfony
+            MYSQL_USER: symfony
+            MYSQL_PASSWORD: symfony
+    php:
+        build: php-fpm
+        ports:
+            - 9000:9000
+        links:
+            - mysql
+        volumes:
+            - ./symfony:/var/www/symfony:cached
+            - ./logs/symfony:/var/www/symfony/var/logs:cached
+    nginx:
+        build: nginx
+        ports:
+            - 80:80
+        links:
+            - php
+        volumes_from:
+            - php
+        volumes:
+            - ./logs/nginx/:/var/log/nginx:cached
+

@@ -17,7 +17,7 @@ When you have docker installed and running you must open a command line interfac
 
 **Note:** If the `composer install` command fails you might need to update your composer with the `composer self-update` command.
 
-When starting the containers without building them run the command `docker-compose up -d` without the `--build`.
+**Note:** When starting the containers without building them run the command `docker-compose up -d` without the `--build` option.
 
 When the steps above are complete you can access the website on the the local address `http://symfony.local/`.
 

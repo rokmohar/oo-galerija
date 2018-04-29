@@ -29,3 +29,8 @@ When the steps above are complete you can access the website on the the local ad
 ### Default user
 
 When you login for the first time use the default user credentials `username: user1` and `password: pass1`. You can change these on the account settings page.
+
+### Default photos
+
+You can find default photos in `data/triglav` directory within project and upload these to the gallery you will create.
+These images contain small changes between each other and are useful for the testing.

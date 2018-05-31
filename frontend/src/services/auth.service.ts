@@ -10,11 +10,6 @@ export class AuthService {
 
     constructor(private storageService: StorageService, private httpService: HttpService) {}
 
-    public async getIdentity(): Promise<User> {
-        const response = await this.httpService.getAuthorized(`/identity`);
-        return response.json();
-    }
-
     public async getJwt(username: string, password: string): Promise<string> {
         const response = await this.httpService.post(`/login`, { username, password });
         return response.text();
@@ -24,7 +19,7 @@ export class AuthService {
         const jwt = await this.getJwt(username, password);
         this.storageService.setJwtToken(jwt);
 
-        return await this.getIdentity();
+        return this.reloadIdentity();
     }
 
     public async reloadIdentity(): Promise<null | User> {
@@ -32,15 +27,24 @@ export class AuthService {
             return await this.identityPromise;
         }
 
-        this.identityPromise = new Promise<null | User>((resolve, reject) => {
-            const identity = this.getIdentity();
-            identity.then((response) => resolve(response), (reason) => reject(reason));
-        });
+        try {
+            this.identityPromise = new Promise<null | User>((resolve, reject) => {
+                this.httpService
+                    .getAuthorized(`/identity`)
+                    .then(
+                        (response) => resolve(response.json()),
+                        (reason)   => reject(reason)
+                    )
+                ;
+            });
 
-        const identity = await this.identityPromise;
-        this.storageService.setIdentity(identity);
-
-        this.identityPromise = null;
+            const identity = await this.identityPromise;
+            this.storageService.setIdentity(identity);
+        } catch (e) {
+            this.storageService.setIdentity(null);
+        } finally {
+            this.identityPromise = null;
+        }
 
         return this.storageService.getIdentity();
     }

@@ -31,9 +31,7 @@ class AuthController extends ApiController
         /** @var Serializer $serializer */
         $serializer = $this->get('jms_serializer');
 
-        $data = $serializer->serialize($identity, 'json');
-
-        return new Response($data);
+        return new Response($serializer->serialize($identity, 'json'));
     }
 
 

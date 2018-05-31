@@ -11,8 +11,8 @@ interface RouteParams {
 export class ListingVM {
 
     private params:  RouteParams;
-    private gallery: Gallery;
     private images:  Set<Image>;
+    private gallery: Gallery;
 
     private compare1: Image;
     private compare2: Image;

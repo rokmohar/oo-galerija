@@ -1,21 +1,37 @@
 <template>
-    <div class="form-group">
+    <div class="form-group clearfix">
+        <select style="float: right;" value.bind="orientation">
+            <option value="vertical">Vertikalno</option>
+            <option value="horizontal">Horizontalno</option>
+        </select>
         <h2>Primerjaj fotografije</h2>
     </div>
 
-    <div class="form-group">
-        <img id="image1" class="img-fluid" width="100%" src.bind="image1.web_path" />
+    <div class="form-group" if.bind="isHorizontal">
+        Na levi strani je prikazana izbrana slika, na desni strani pa je slika za primerjavo. S klikom na gumb
+        odstrani sliko se odstrani slika, ki jo primerjamo.
     </div>
 
-    <div class="form-group">
-        <img id="image2" class="img-fluid" width="100%" src.bind="image2.web_path" />
+    <div class="form-group" if.bind="!isHorizontal">
+        Na vrhu je prikazana izbrana slika, pod njo pa je slika za primerjavo. S klikom na gumb odstrani sliko
+        se odstrani slika, ki jo primerjamo.
     </div>
 
-    <div class="form-group">
-        <h3>Razlike med fotografijama</h3>
-    </div>
+    <div class="form-group" repeat.for="image of images">
+        <div class="form-group clearfix" if.bind="isHorizontal">
+            <img class="img-fluid" style="float: left; height: ${minHeight(selected, image)}px;" width="50%" src.bind="selected.web_path" />
+            <img class="img-fluid" style="float: left; height: ${minHeight(selected, image)}px;" width="50%" src.bind="image.web_path" />
+        </div>
 
-    <div class="form-group">
-        <img id="image-diff" class="img-fluid" width="100%" src.bind="imgDiff" />
+        <div class="form-group" if.bind="!isHorizontal">
+            <img class="img-fluid" width="100%" src.bind="selected.web_path" />
+            <img class="img-fluid" width="100%" src.bind="image.web_path" />
+        </div>
+
+        <div class="form-group clearfix">
+            <button type="button" class="btn btn-default pull-right" click.trigger="deleteImage(image)">
+                Odstrani sliko
+            </button>
+        </div>
     </div>
 </template>

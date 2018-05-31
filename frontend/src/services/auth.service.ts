@@ -42,7 +42,6 @@ export class AuthService {
             const identity = await this.identityPromise;
             this.storageService.setIdentity(identity);
         } catch (e) {
-            console.log(e);
             this.storageService.setIdentity(null);
         } finally {
             this.identityPromise = null;

@@ -1,36 +1,64 @@
 import { autoinject } from 'aurelia-framework';
-import { Image } from '../../../models';
-import { ImageApi } from '../../../services';
-
-import 'jimp/browser/lib/jimp';
-const jimp = window.Jimp;
+import { Router } from 'aurelia-router';
+import { GalleryApi, ImageApi } from '../../../services';
+import { Gallery, Image } from '../../../models';
 
 interface RouteParams {
-    imageId1: string;
-    imageId2: string;
+    galleryId: string;
+    imageId:   string;
 }
 
 @autoinject()
 export class CompareVM {
 
-    private imgDiff: string;
+    private orientation: string;
+    private params:      RouteParams;
+    private images:      Set<Image>;
+    private gallery:     Gallery;
 
-    private params: RouteParams;
-    private image1: Image;
-    private image2: Image;
+    private get selected(): Image {
+        const images = Array.from(this.images.values());
 
-    constructor(private imageApi: ImageApi) {}
+        for (const image of images) {
+            if (image.id === this.params.imageId) {
+                return image;
+            }
+        }
+    }
+
+    private get others(): Array<Image> {
+        const images = Array.from(this.images.values());
+        const others = Array<Image>();
+
+        for (const image of images) {
+            if (image.id !== this.params.imageId) {
+                images.push(image);
+            }
+        }
+
+        return others;
+    }
+
+    private get isHorizontal(): boolean {
+        return this.orientation === 'horizontal';
+    }
+
+    constructor(private galleryApi: GalleryApi, private imageApi: ImageApi, private router: Router) {}
 
     private async activate(params: RouteParams): Promise<void> {
         this.params = params;
-        this.image1 = await this.imageApi.findImage(params.imageId1);
-        this.image2 = await this.imageApi.findImage(params.imageId2);
 
-        const img1 = await jimp.read(this.image1.web_path);
-        const img2 = await jimp.read(this.image2.web_path);
+        this.gallery = await this.galleryApi.findGallery(params.galleryId);
+        this.images  = new Set<Image>(await this.imageApi.findAllImages(params.galleryId));
+    }
 
-        const diff = jimp.diff(img1, img2, 0.1);
-        diff.image.getBase64(jimp.MIME_PNG, (err, data) => { this.imgDiff = data; });
+    private async deleteImage(image: Image): Promise<void> {
+        await this.imageApi.deleteImage(image.id);
+        this.images.delete(image);
+    }
+
+    private minHeight(image1: Image, image2: Image): number {
+        return Math.min(image1.height, image2.height);
     }
 
 }

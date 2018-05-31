@@ -40,11 +40,19 @@ export class ImagesVM {
                 auth:     true,
             },
             {
+                route:    ':imageId/compare',
+                href:     'imageId',
+                name:     'admin.images.compare',
+                title:    'Primerjaj fotografijo',
+                moduleId: PLATFORM.moduleName('./+compare/compare'),
+                auth:     true,
+            },
+            {
                 route:    ':imageId1/:imageId2',
                 href:     'imageId1',
-                name:     'admin.images.compare',
-                title:    'Primerjaj fotografije',
-                moduleId: PLATFORM.moduleName('./+compare/compare'),
+                name:     'admin.images.diff',
+                title:    'Razlike med fotografijama',
+                moduleId: PLATFORM.moduleName('./+diff/diff'),
                 auth:     true,
             },
         ]);

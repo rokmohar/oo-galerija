@@ -38,7 +38,7 @@ export class ListingVM {
 
         const imageId1 = this.compare1.id;
         const imageId2 = this.compare2.id;
-        this.router.navigateToRoute('admin.images.compare', { imageId1, imageId2 });
+        this.router.navigateToRoute('admin.images.diff', { imageId1, imageId2 });
     }
 
 }

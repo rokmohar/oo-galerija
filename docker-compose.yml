@@ -2,7 +2,7 @@ version: '2.1'
 
 services:
     mysql:
-        image: mysql
+        image: mysql:5.7
         ports:
             - 3306:3306
         volumes:
@@ -31,4 +31,16 @@ services:
             - php
         volumes:
             - ./logs/nginx/:/var/log/nginx:cached
+
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        links:
+           - mysql
+        environment:
+            PMA_HOST: 'mysql'
+            PMA_PORT: 3306
+        ports:
+            - 8081:80
+        restart: always
 
